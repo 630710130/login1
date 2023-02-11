@@ -31,16 +31,16 @@ class _MyPassState extends State<MyPass> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(bottom: 16.0),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center,
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
           children: [
-            Expanded(
+            Expanded(flex: 1,
               child: Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      Icons.lock,
+                      Icons.lock_outline,
                       color: Colors.grey,
                       size: 80,
                     ),
@@ -52,43 +52,91 @@ class _MyPassState extends State<MyPass> {
                 ),
               ),
             ),
-
-            Expanded(
+            Expanded(flex: 2,
               child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Column(
                   children: [
-                    Column(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ['1', '2', '3'],
-                        ['4', '5', '6'],
-                        ['7', '8', '9'],
-                        [     '0',    ],
-                      ].
-                      map((item) => _buildNumberRow(item)).toList(),
+                        Column(
+                          children: [
+
+                            ['1', '2', '3'],
+                            ['4', '5', '6'],
+                            ['7', '8', '9'],
+                          ].map((item) => _buildNumberRow(item)).toList(),
+
+
+                        ),
+
+                      ],
+
                     ),
-                    
+                    Row(mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 100,
+                          ),
+                          Container(
+                            width: 75.0,
+                            height: 75.0,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                                border: Border.all(color: Colors.grey, width: 2.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2), // สีเงา
+                                    offset: Offset(2, 4), // ทิศทางของเงาในแนวนอนและแนวตั้ง ตามลำดับ
+                                    blurRadius: 4.0,
+                                    spreadRadius: 2.0,
+                                  )
+                                ]),
+                            //color: Colors.white, // ห้ามกำหนด color ตรงนี้ ถ้าหากกำหนดใน BoxDecoration แล้ว
+                            child: TextButton(
+                              onPressed: () {
+                                debugPrint('0');
+                              },
+                              child: Text('0',style: TextStyle(fontSize: 25,color: Colors.black)),
+                            ),
+                          ),
+                          Container(
+                            height: 50.0,
+                            width: 100.0,
+                            child: TextButton(
+                              child: Icon(Icons.backspace,size: 30,color: Colors.black,),
+                              onPressed: () {},
+                            ),
+                          ),
+
+                        ]
+                    ),
                   ],
                 ),
+
               ),
             ),
-            SizedBox(width: 40),
+            TextButton(
+              onPressed: (){
+                setState(() {
 
-          TextButton(onPressed: (){}, child: new Text('ลืมรหัสผ่าน',style: TextStyle(fontSize: 20),)),
-
+                });
+              },
+              child: Text('ลืมรหัสผ่าน',style: TextStyle(fontSize: 25),),
+            ),
           ],
         ),
-
       ),
-
     );
-
   }
   Row _buildNumberRow(List<String> NumberList) {
     return Row(
       children: [
+
         for (var i = 0; i < NumberList.length; i++)
           _buildButton4(NumberList[i]),
+
       ],
     );
   }
@@ -101,22 +149,22 @@ class _MyPassState extends State<MyPass> {
         decoration: BoxDecoration(
             color: Colors.white,
             shape: BoxShape.circle,
-            border: Border.all(color: Colors.grey, width: 1.0),
-
-                     ),
-
+            border: Border.all(color: Colors.grey, width: 2.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2), // สีเงา
+                offset: Offset(2, 4), // ทิศทางของเงาในแนวนอนและแนวตั้ง ตามลำดับ
+                blurRadius: 4.0,
+                spreadRadius: 2.0,
+              )
+            ]),
+        //color: Colors.white, // ห้ามกำหนด color ตรงนี้ ถ้าหากกำหนดใน BoxDecoration แล้ว
         child: TextButton(
           onPressed: () {
             debugPrint(Number);
           },
-          child: Text(Number,style: TextStyle(fontSize: 25,color: Colors.black),),
-
+          child: Text(Number,style: TextStyle(fontSize: 25,color: Colors.black)),
         ),
-
       ),
-
     );
   }
-
-
-}
